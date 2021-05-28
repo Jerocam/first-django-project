@@ -22,13 +22,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-l&&o$r@_*jnl28=fb+44(gt8k_*6s*iq!jf+51a3ei6f4dfr7('
+# SECRET_KEY = 'django-insecure-l&&o$r@_*jnl28=fb+44(gt8k_*6s*iq!jf+51a3ei6f4dfr7('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'nameless-cliffs-83908.herokuapp.com']
 
+SECRET_KEY = os.environ.get('django-insecure-l&&o$r@_*jnl28=fb+44(gt8k_*6s*iq!jf+51a3ei6f4dfr7(')
+EMAIL_HOST_USER = os.environ.get('ocamposjero@gmail.com')
+EMAIL_HOST_PASSWORD = os.environ.get('!2268411OLIsof$@')
 
 # Application definition
 
@@ -39,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'whitenoise.runserver_nostatic',
     'info'
 ]
 
@@ -50,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'db_web.urls'
@@ -86,7 +91,8 @@ DATABASES = {
         'PORT':'5432'
     }
 }
-
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -126,7 +132,18 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+#location where django collect all static files
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
+# location where you will store your static files
+STATICFILES_DIRS = [os.path.join(BASE_DIR,'db_web/static')
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
