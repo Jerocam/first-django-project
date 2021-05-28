@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block content %}
+
+<main>
+  <div class="container py-4">
+    <header class="pb-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-info-square-fill" viewBox="0 0 16 16">
+        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm8.93 4.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM8 5.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+      </svg>
+        <span class="fs-4">&nbsp; Python - Django with PostgreSQL Project</span>
+      </a>
+    </header>
+
+    <div class="row align-items-md-stretch">
+      <div class="col">
+        <div class="h-100 p-5 text-white bg-dark rounded-3">
+          <h2>Jobs</h2>
+          <p>Database information about various Job salaries</p>
+          {% if jinfo %}
+          <table class='table table-dark'>
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Title</th>
+                <th scope="col">Minimum Salary</th>
+                <th scope="col">Maximum Salary</th>
+              </tr>
+            </thead>
+            <tbody>{% for job in jinfo %}
+              <tr>
+                <th scope="row">{{ job.job_id}}</th>
+                <td>{{ job.job_title}}</td>
+                <td>${{ job.min_salary}}</td>
+                <td>${{ job.max_salary}}</td>
+              </tr>{% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <h1>No Data</h1>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col mt-5">
+        <div class="h-100 p-5 bg-light border rounded-3">
+          <h2>Employees</h2>
+          <p>Database information about employees</p>
+          {% if eminfo %}
+          <table class='table table-light'>
+            <thead>
+              <tr>
+                <th scope="col">Employee ID</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Hire Date</th>
+                <th scope="col">Salary</th>
+              </tr>
+            </thead>
+            <tbody>{% for empl in eminfo %}
+              <tr>
+                <th scope="row">{{ empl.employee_id }}</th>
+                <td>{{ empl.first_name}}</td>
+                <td>{{ empl.last_name}}</td>
+                <td>{{ empl.email}}</td>
+                <td>{{ empl.phone_number}}</td>
+                <td>{{ empl.hire_date}}</td>
+                <td>${{ empl.salary}}</td>
+              </tr>{% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <h1>No Data</h1>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <footer class="pt-3 mt-4 text-muted border-top">
+      &copy; 2021
+    </footer>
+  </div>
+</main>
+
+{% endblock %}
