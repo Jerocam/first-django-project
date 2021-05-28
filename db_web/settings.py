@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import dj_database_url
 import dotenv
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,16 +23,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-l&&o$r@_*jnl28=fb+44(gt8k_*6s*iq!jf+51a3ei6f4dfr7('
+SECRET_KEY = 'django-insecure-l&&o$r@_*jnl28=fb+44(gt8k_*6s*iq!jf+51a3ei6f4dfr7('
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'nameless-cliffs-83908.herokuapp.com']
 
-SECRET_KEY = os.environ.get('django-insecure-l&&o$r@_*jnl28=fb+44(gt8k_*6s*iq!jf+51a3ei6f4dfr7(')
-EMAIL_HOST_USER = os.environ.get('ocamposjero@gmail.com')
-EMAIL_HOST_PASSWORD = os.environ.get('!2268411OLIsof$@')
+# SECRET_KEY = os.environ.get('django-insecure-l&&o$r@_*jnl28=fb+44(gt8k_*6s*iq!jf+51a3ei6f4dfr7(')
+# EMAIL_HOST_USER = os.environ.get('ocamposjero@gmail.com')
+# EMAIL_HOST_PASSWORD = os.environ.get('password')
 
 # Application definition
 
@@ -82,17 +83,16 @@ WSGI_APPLICATION = 'db_web.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'jobsdb',
-        'USER': 'postgres',
-        'PASSWORD': '2268411',
-        'HOST':'localhost',
-        'PORT':'5432'
+'default': {
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    'NAME': 'jobsdb',
+    'USER': 'postgres',
+    'PASSWORD': '2268411',
+    'HOST': 'localhost',
+    'PORT': '5432',
     }
 }
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+# DATABASES['default'] = dj_database_url.config(conn_max_age=600)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
